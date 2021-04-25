@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function Grid() {
   const [valuePath, setValuePath] = useState('');
   const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   const shuffle = (array) => {
     const nAry = array;
     let currentIndex = array.length;
@@ -29,7 +30,11 @@ export default function Grid() {
       setValuePath('');
       setValues(shuffle);
     } else {
-      setScore((v) => v + 1);
+      setScore((v) => {
+        const newVal = v + 1;
+        if (newVal > bestScore) setBestScore(newVal);
+        return newVal;
+      });
       setValuePath((v) => v + e.target.textContent);
     }
   };
@@ -38,7 +43,17 @@ export default function Grid() {
   return (
     <>
       <div id='status'>
-        <span>{score}</span>
+        <span>
+          Score:
+          {' '}
+          {score}
+        </span>
+        <br />
+        <span>
+          Best Score:
+          {' '}
+          {bestScore}
+        </span>
       </div>
       <div id='cards'>
         <button type='button' onClick={retrieveValue}>{values[0]}</button>
