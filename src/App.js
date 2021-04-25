@@ -1,8 +1,11 @@
 import React from 'react';
 
-export default function App(props) {
+import Grid from './components/Grid';
+
+export default function App() {
   return (
-    <>
-    </>
+    <div>
+      <Grid />
+    </div>
   );
 }
