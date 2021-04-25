@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Grid() {
-  const [lastValue, setLastValue] = useState(null);
+  const [valuePath, setValuePath] = useState('');
+  const [score, setScore] = useState(0);
   const shuffle = (array) => {
     const nAry = array;
     let currentIndex = array.length;
@@ -20,32 +21,37 @@ export default function Grid() {
     shuffle(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']),
   );
 
-  const retrieveLastValue = (e) => {
+  const retrieveValue = (e) => {
     const newValue = e.target.textContent;
-    if (newValue === lastValue) {
+    if (valuePath.includes(newValue)) {
       alert('You lost');
-      setLastValue(null);
+      setScore(0);
+      setValuePath('');
       setValues(shuffle);
     } else {
-      setLastValue(e.target.textContent);
+      setScore((v) => v + 1);
+      setValuePath((v) => v + e.target.textContent);
     }
   };
-  useEffect(() => setValues(shuffle), [lastValue]);
+  useEffect(() => setValues(shuffle), [score]);
 
   return (
     <>
+      <div id='status'>
+        <span>{score}</span>
+      </div>
       <div id='cards'>
-        <button type='button' onClick={retrieveLastValue}>{values[0]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[1]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[2]}</button>
+        <button type='button' onClick={retrieveValue}>{values[0]}</button>
+        <button type='button' onClick={retrieveValue}>{values[1]}</button>
+        <button type='button' onClick={retrieveValue}>{values[2]}</button>
         <br />
-        <button type='button' onClick={retrieveLastValue}>{values[3]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[4]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[5]}</button>
+        <button type='button' onClick={retrieveValue}>{values[3]}</button>
+        <button type='button' onClick={retrieveValue}>{values[4]}</button>
+        <button type='button' onClick={retrieveValue}>{values[5]}</button>
         <br />
-        <button type='button' onClick={retrieveLastValue}>{values[6]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[7]}</button>
-        <button type='button' onClick={retrieveLastValue}>{values[8]}</button>
+        <button type='button' onClick={retrieveValue}>{values[6]}</button>
+        <button type='button' onClick={retrieveValue}>{values[7]}</button>
+        <button type='button' onClick={retrieveValue}>{values[8]}</button>
       </div>
     </>
   );
