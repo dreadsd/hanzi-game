@@ -1,14 +1,7 @@
-let files = [ 'index.html' ];
-
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-
-files = files.map((file) => {
-  const attrs = { filename: file, template: `./public/${file}`, hash: true };
-  return new HtmlWebpackPlugin(attrs);
-});
 
 module.exports = {
   mode: 'development',
@@ -25,7 +18,11 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new ESLintPlugin(),
-    ...files
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      hash: true
+    }),
   ],
   module: {
     rules: [

@@ -1,5 +1,4 @@
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box;
 }
 
 html, body, span, h1, h2, h3, h4, h5, h6, p, a, img {
@@ -20,6 +19,7 @@ body {
 }
 
 #status {
+  user-select: none;
   text-align: end;
   div {
     div {
@@ -56,7 +56,7 @@ body {
   button {
     cursor: pointer;
     border: 0;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     background-color: #fff;
     transition: font-size 0.5s;
     transition: background-color 0.5s;
