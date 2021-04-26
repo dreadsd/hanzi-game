@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import GameStatus from './GameStatus';
+import Cells from './Cells';
+
 export default function Grid() {
   const [valuePath, setValuePath] = useState('');
   const [score, setScore] = useState(0);
@@ -24,11 +27,11 @@ export default function Grid() {
   };
   const [values, setValues] = useState(
     [
-      '声', '酒', '空', '芯', '白',
-      '像', '奇', '体', '果', '知',
-      '特', '是', '愛', '影', '波',
-      '不', '笑', '目', '理', '塔',
-      '殺', '蟹', '差', '鬼', '血',
+      ['声', 'sound'], ['酒', 'wine'], ['空', 'air'], ['芯', 'core'], ['白', 'white'],
+      ['像', 'image'], ['奇', 'odd'], ['体', 'body'], ['果', 'fruit'], ['冷', 'cold'],
+      ['特', 'special'], ['危', 'danger'], ['愛', 'love'], ['影', 'shadow'], ['波', 'wave'],
+      ['神', 'god'], ['笑', 'laugh'], ['目', 'eye'], ['打', 'fight'], ['塔', 'tower'],
+      ['殺', 'kill'], ['蟹', 'crab'], ['黑', 'black'], ['鬼', 'ghost'], ['血', 'blood'],
     ],
   );
 
@@ -80,48 +83,20 @@ export default function Grid() {
 
   return (
     <>
-      <div id='status'>
-        <div>
-          <div>
-            Score:
-            {' '}
-            {score}
-          </div>
-          <div className={bestScore === values.length ? 'message-success' : null}>
-            Best Score:
-            {' '}
-            {bestScore}
-          </div>
-          <div className={message.className}>{message.content}</div>
-        </div>
-      </div>
-      <div id='cards'>
-        <button type='button' onClick={retrieveValue}>{values[0]}</button>
-        <button type='button' onClick={retrieveValue}>{values[1]}</button>
-        <button type='button' onClick={retrieveValue}>{values[2]}</button>
-        <button type='button' onClick={retrieveValue}>{values[3]}</button>
-        <button type='button' onClick={retrieveValue}>{values[4]}</button>
-        <button type='button' onClick={retrieveValue}>{values[5]}</button>
-        <button type='button' onClick={retrieveValue}>{values[6]}</button>
-        <button type='button' onClick={retrieveValue}>{values[7]}</button>
-        <button type='button' onClick={retrieveValue}>{values[8]}</button>
-        <button type='button' onClick={retrieveValue}>{values[9]}</button>
-        <button type='button' onClick={retrieveValue}>{values[10]}</button>
-        <button type='button' onClick={retrieveValue}>{values[11]}</button>
-        <button type='button' onClick={retrieveValue}>{values[12]}</button>
-        <button type='button' onClick={retrieveValue}>{values[13]}</button>
-        <button type='button' onClick={retrieveValue}>{values[14]}</button>
-        <button type='button' onClick={retrieveValue}>{values[15]}</button>
-        <button type='button' onClick={retrieveValue}>{values[16]}</button>
-        <button type='button' onClick={retrieveValue}>{values[17]}</button>
-        <button type='button' onClick={retrieveValue}>{values[18]}</button>
-        <button type='button' onClick={retrieveValue}>{values[19]}</button>
-        <button type='button' onClick={retrieveValue}>{values[20]}</button>
-        <button type='button' onClick={retrieveValue}>{values[21]}</button>
-        <button type='button' onClick={retrieveValue}>{values[22]}</button>
-        <button type='button' onClick={retrieveValue}>{values[23]}</button>
-        <button type='button' onClick={retrieveValue}>{values[24]}</button>
-      </div>
+      <GameStatus
+        score={score}
+        bestScore={{
+          content: bestScore,
+          successClassName: bestScore === values.length ? 'message-success' : '',
+        }}
+        message={message}
+        lastSymbol={
+          valuePath
+            ? values.find((v) => v[0] === valuePath[valuePath.length - 1])[1]
+            : 'none'
+        }
+      />
+      <Cells values={values} listener={retrieveValue} />
     </>
   );
 }
