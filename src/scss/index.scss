@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, span, h1, h2, h3, h4, h5, h6, p, a, img {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+#game {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#status {
+  text-align: end;
+  div {
+    div {
+      font-size: 0.9rem;
+      margin: 0.7rem;
+    }
+  }
+}
+
+[class^="message-"] {
+  font-weight: bold;
+  font-stretch: condensed;
+}
+
+.message-fail {
+  color: red;
+}
+
+.message-success {
+  color: green;
+}
+
+.message-normal {
+  color: #333;
+}
+
+#cards {
+  user-select: none;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template: repeat(5, 1fr) / repeat(5, 1fr);
+  button {
+    cursor: pointer;
+    border: 0;
+    font-size: 1.4rem;
+    background-color: #fff;
+    transition: font-size 0.5s;
+    transition: background-color 0.5s;
+    &:hover {
+      background-color: #bbb;
+    }
+    &:focus {
+    position: relative;
+      outline: medium dashed black;
+    }
+  }
+}

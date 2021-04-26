@@ -4,7 +4,7 @@ import Grid from './components/Grid';
 
 export default function App() {
   return (
-    <div>
+    <div id='game'>
       <Grid />
     </div>
   );
