@@ -32,36 +32,48 @@ export default function Grid() {
     ],
   );
 
-  const retrieveValue = (e) => {
-    const newValue = e.target.textContent;
-    if (valuePath.includes(newValue)) {
+  const finishGame = () => {
+    setScore(0);
+    setValuePath('');
+    setValues(shuffle);
+  };
+  const failGame = () => {
+    setMessage({
+      className: 'message-fail',
+      content: 'You lost',
+    });
+    finishGame();
+  };
+  const checkScore = (v) => {
+    const newScore = v + 1;
+    if (newScore > bestScore) setBestScore(newScore);
+    if (newScore === values.length) {
       setMessage({
-        className: 'message-fail',
-        content: 'You lost',
+        className: 'message-success',
+        content: 'You won',
       });
-      setScore(0);
-      setValuePath('');
-      setValues(shuffle);
-    } else {
+      finishGame();
+      return 0;
+    }
+    return newScore;
+  };
+  const checkSymbol = (value) => {
+    const newScore = checkScore(score);
+    if (newScore !== 0) {
       setMessage({
         className: 'message-normal',
         content: 'Select different hanzi',
       });
-      setScore((v) => {
-        let newVal = v + 1;
-        if (newVal > bestScore) setBestScore(newVal);
-        if (newVal === 1) {
-          setMessage({
-            className: 'message-success',
-            content: 'You won',
-          });
-          newVal = 0;
-          setValuePath('');
-          setValues(shuffle);
-        }
-        return newVal;
-      });
-      setValuePath((v) => v + e.target.textContent);
+      setValuePath((v) => v + value);
+      setScore(newScore);
+    }
+  };
+  const retrieveValue = (e) => {
+    const newValue = e.target.textContent;
+    if (valuePath.includes(newValue)) {
+      failGame();
+    } else {
+      checkSymbol(newValue);
     }
   };
   useEffect(() => setValues(shuffle), [score]);
